@@ -1,4 +1,6 @@
 import numpy.random as rand
+from tkinter import *
+
 
 def dead_state(width, height):
     return [[0] * width for i in range(height)]
@@ -17,18 +19,20 @@ def random_state(width, height):
 
 
 def render(board_state):
-    print(' ', end="")
-    print(' - ' * len(board_state[0]))
+    # string = '--' * len(board_state[0]) + '\n'
+    string = ''
     for y in range(0, len(board_state)):
-        print('| ', end="")
+        # string += '| '
         for x in range(0, len(board_state[y])):
             if board_state[y][x] == 1:
-                print(' # ', end="")
+                string += '██'
             else :
-                print('   ', end="")
-        print(' |')
-    print(' ', end="")
-    print(' - ' * len(board_state[0]))
+                string += '  '
+        string += '\n'
+    # string += ' '
+    # string +='--' * len(board_state[0]) + '\n'
+    return string
+
 
 
 def next_board_state(board_state):
@@ -61,9 +65,21 @@ def number_of_neighbors(x, y, state):
                     num += 1
     return num
 
-board_state = random_state(20, 20)
-render(board_state)
-for i in range(0, 100):
-    board_state = next_board_state(board_state)
-    render(board_state)
+def update(board_state):
+    new_state = next_board_state(board_state)
+    label.config(text = render(board_state))
+    window.after(50, update, new_state)
+
+board_state = random_state(100, 100)
+window = Tk()
+label = Label(window, font=("courier new", 8), fg='white', bg='black')
+label.pack()
+update(board_state)
+window.mainloop()
+# render(board_state, window)
+# for i in range(0, 100):
+#     board_state = next_board_state(board_state)
+    # render(board_state, window)
+
+
 
