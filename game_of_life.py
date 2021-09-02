@@ -6,14 +6,14 @@ from tkinter import *
 
 font_size = 4
 
-# filename = "puffer1.csv"
+filename = "puffer1.csv"
 
 
 class Game_Of_Life(object):
 
     def __init__(self):
-        # self.board_state = pd.read_csv("boards_file/" + filename).values
-        self.board_state = self.random_state(50, 50)
+        self.board_state = pd.read_csv("boards_file/" + filename).values
+        # self.board_state = self.random_state(50, 50)
         self.window = Tk()
         self.header = Label(self.window, font=("courier new", font_size), fg='white', bg='black')
         self.label = Label(self.window, font=("courier new", font_size), fg='white', bg='black')
@@ -93,7 +93,7 @@ class Game_Of_Life(object):
         self.gen += 1
         self.label.config(text='Generation: ' + str(self.gen) + "\tPopulation: " + str(self.population))
         self.label.config(text=self.render())
-        self.window.after(50, self.update)
+        self.window.after(5, self.update)
 
 
 game_of_life = Game_Of_Life()
