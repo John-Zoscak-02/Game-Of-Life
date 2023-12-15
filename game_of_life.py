@@ -3,15 +3,13 @@ from typing import List, Any, Union
 import numpy.random as rand
 import pandas as pd
 from tkinter import *
+import sys
 
 font_size = 4
 
-filename = "puffer1.csv"
-
-
 class Game_Of_Life(object):
 
-    def __init__(self):
+    def __init__(self, filename):
         self.board_state = pd.read_csv("boards_file/" + filename).values
         # self.board_state = self.random_state(50, 50)
         self.window = Tk()
@@ -95,5 +93,8 @@ class Game_Of_Life(object):
         self.label.config(text=self.render())
         self.window.after(5, self.update)
 
-
-game_of_life = Game_Of_Life()
+if len(sys.argv) > 1:
+    filename = str(sys.argv[1])
+else:
+    filename = "puffer1.csv"
+game_of_life = Game_Of_Life(filename=filename)
